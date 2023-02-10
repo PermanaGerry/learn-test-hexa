@@ -9,5 +9,5 @@ type PushNotificationRepository interface {
 }
 
 type PushNotificationService interface {
-	Send() domain.PushNotif
+	Send(notif domain.PushNotif) domain.PushNotif
 }
