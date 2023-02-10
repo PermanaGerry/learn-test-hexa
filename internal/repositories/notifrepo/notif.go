@@ -16,7 +16,7 @@ func NewMemNotif() *memNotif {
 	}
 }
 
-func (repo *memNotif) Send() domain.PushNotif {
+func (repo *memNotif) Send(data domain.PushNotif) domain.PushNotif {
 
 	id := uuid.New().String()
 	notif := domain.NewNotif(id, "test pesan", 1)

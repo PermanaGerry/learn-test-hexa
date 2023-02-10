@@ -2,11 +2,9 @@ package main
 
 // C:\Users\Majoo Indonesia\workspace\go\src\learn-test-hexa\internal\handlers\notifhdl\notif.go
 import (
-	"fmt"
 	"learn-test-hexa/internal/core/services/notifsrv"
 	"learn-test-hexa/internal/handlers/notifhdl"
 	"learn-test-hexa/internal/repositories/notifrepo"
-	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,14 +13,12 @@ func main() {
 
 	notifRepository := notifrepo.NewMemNotif()
 
-	fmt.Println(notifRepository)
-	os.Exit(0)
-
 	notifService := notifsrv.New(notifRepository)
 	notifHandler := notifhdl.NewHTTPHadler(notifService)
 
 	gin.SetMode(gin.ReleaseMode)
-	router := gin.New()
+
+	router := gin.Default()
 	router.GET("/send", notifHandler.Send)
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
