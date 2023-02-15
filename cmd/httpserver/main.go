@@ -37,7 +37,11 @@ func main() {
 	router := gin.Default()
 	router.GET("/send", notifHandler.Send)
 	router.GET("/show", notifHandler.List)
-	router.GET("/redis", notifHandlerRedis.List)
+	groupRedis := router.Group("/redis")
+	{
+		groupRedis.GET("/send", notifHandlerRedis.Send)
+		groupRedis.GET("/list", notifHandlerRedis.List)
+	}
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "test",
