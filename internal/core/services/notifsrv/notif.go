@@ -21,3 +21,9 @@ func (srv *service) Send(data domain.PushNotif) domain.PushNotif {
 
 	return notif
 }
+
+func (srv *service) List() domain.ShowNotif {
+	show := srv.pushNotificationRepository.Show()
+
+	return show
+}

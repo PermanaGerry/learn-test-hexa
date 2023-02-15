@@ -2,8 +2,6 @@ package notifrepo
 
 import (
 	"learn-test-hexa/internal/core/domain"
-
-	"github.com/google/uuid"
 )
 
 type memNotif struct {
@@ -17,9 +15,26 @@ func NewMemNotif() *memNotif {
 }
 
 func (repo *memNotif) Send(data domain.PushNotif) domain.PushNotif {
-
-	id := uuid.New().String()
-	notif := domain.NewNotif(id, "test pesan", 1)
+	notif := domain.NewNotif(data.ID, data.Message, data.Type)
 
 	return notif
+}
+
+func (repo *memNotif) Show() domain.ShowNotif {
+	list := domain.ShowNotif{
+		Lists: []domain.PushNotif{
+			{
+				ID:      "test-test",
+				Message: "test",
+				Type:    1,
+			},
+			{
+				ID:      "test-test-1",
+				Message: "test",
+				Type:    1,
+			},
+		},
+	}
+
+	return list
 }
