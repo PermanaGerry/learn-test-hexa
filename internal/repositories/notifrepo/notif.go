@@ -14,13 +14,13 @@ func NewMemNotif() *memNotif {
 	}
 }
 
-func (repo *memNotif) Send(data domain.PushNotif) domain.PushNotif {
+func (repo *memNotif) Send(data domain.PushNotif) (domain.PushNotif, error) {
 	notif := domain.NewNotif(data.ID, data.Message, data.Type)
 
-	return notif
+	return notif, nil
 }
 
-func (repo *memNotif) Show() domain.ShowNotif {
+func (repo *memNotif) Show() (domain.ShowNotif, error) {
 	list := domain.ShowNotif{
 		Lists: []domain.PushNotif{
 			{
@@ -36,5 +36,5 @@ func (repo *memNotif) Show() domain.ShowNotif {
 		},
 	}
 
-	return list
+	return list, nil
 }

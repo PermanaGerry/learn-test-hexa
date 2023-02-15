@@ -15,15 +15,23 @@ func New(pushNotificationRepository ports.PushNotificationRepository) *service {
 	}
 }
 
-func (srv *service) Send(data domain.PushNotif) domain.PushNotif {
+func (srv *service) Send(data domain.PushNotif) (domain.PushNotif, error) {
 
-	notif := srv.pushNotificationRepository.Send(data)
+	notif, err := srv.pushNotificationRepository.Send(data)
 
-	return notif
+	if err != nil {
+		return notif, err
+	}
+
+	return notif, nil
 }
 
-func (srv *service) List() domain.ShowNotif {
-	show := srv.pushNotificationRepository.Show()
+func (srv *service) List() (domain.ShowNotif, error) {
+	show, err := srv.pushNotificationRepository.Show()
 
-	return show
+	if err != nil {
+		return show, err
+	}
+
+	return show, nil
 }

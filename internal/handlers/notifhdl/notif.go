@@ -21,17 +21,29 @@ func NewHTTPHadler(notifService ports.PushNotificationService) *HTTPHandler {
 func (hdl *HTTPHandler) Send(c *gin.Context) {
 
 	id := uuid.New().String()
-	notif := hdl.notifService.Send(domain.PushNotif{
+	notif, err := hdl.notifService.Send(domain.PushNotif{
 		ID:      id,
 		Message: "test-message",
 		Type:    1,
 	})
 
+	if err != nil {
+		c.JSON(200, domain.ErrorMessage{
+			Message: err.Error(),
+		})
+	}
+
 	c.JSON(200, notif)
 }
 
 func (hdl *HTTPHandler) List(c *gin.Context) {
-	show := hdl.notifService.List()
+	show, err := hdl.notifService.List()
+
+	if err != nil {
+		c.JSON(200, domain.ErrorMessage{
+			Message: err.Error(),
+		})
+	}
 
 	c.JSON(200, show.Lists)
 }

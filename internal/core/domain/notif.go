@@ -10,6 +10,10 @@ type ShowNotif struct {
 	Lists []PushNotif
 }
 
+type ErrorMessage struct {
+	Message string `json:"message"`
+}
+
 func NewNotif(id string, message string, tipe int) PushNotif {
 	return PushNotif{
 		ID:      id,
