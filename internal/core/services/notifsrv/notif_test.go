@@ -45,7 +45,7 @@ func TestSend(t *testing.T) {
 		mocks func(m mocks)
 	}{
 		{
-			name: "Should send notif successfully - positif",
+			name: "[positif] Should send notif successfully",
 			args: args{id: "test-test", message: "test", tipe: 1},
 			want: want{result: notif},
 			mocks: func(m mocks) {
@@ -55,7 +55,7 @@ func TestSend(t *testing.T) {
 			},
 		},
 		{
-			name: "Should return error - error get redis",
+			name: "[negatif] Should return error - error get redis",
 			args: args{id: "test-test", message: "test", tipe: 1},
 			want: want{err: errors.New("error get redis")},
 			mocks: func(m mocks) {
@@ -65,7 +65,7 @@ func TestSend(t *testing.T) {
 			},
 		},
 		{
-			name: "Should return error - error unmarshall data redis",
+			name: "[negatif] Should return error - error unmarshall data redis",
 			args: args{id: "test-test", message: "test", tipe: 1},
 			want: want{err: errors.New("error unmarshall data redis")},
 			mocks: func(m mocks) {
@@ -75,7 +75,7 @@ func TestSend(t *testing.T) {
 			},
 		},
 		{
-			name: "Should return error - error marshal save data redis",
+			name: "[negatif] Should return error - error marshal save data redis",
 			args: args{id: "test-test", message: "test", tipe: 1},
 			want: want{err: errors.New("error marshal save data redis")},
 			mocks: func(m mocks) {
@@ -85,7 +85,7 @@ func TestSend(t *testing.T) {
 			},
 		},
 		{
-			name: "Should return error - error save data redis",
+			name: "[negatif] Should return error - error save data redis",
 			args: args{id: "test-test", message: "test", tipe: 1},
 			want: want{err: errors.New("error save data redis")},
 			mocks: func(m mocks) {
