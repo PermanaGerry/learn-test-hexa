@@ -1,7 +1,6 @@
 package config
 
 import (
-	"context"
 	"fmt"
 	"time"
 
@@ -10,7 +9,6 @@ import (
 )
 
 var (
-	ctx     = context.Background()
 	DBRedis *redis.Client
 )
 

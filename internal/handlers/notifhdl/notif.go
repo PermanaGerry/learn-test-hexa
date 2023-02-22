@@ -5,7 +5,6 @@ import (
 	"learn-test-hexa/internal/core/ports"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 )
 
 type HTTPHandler struct {
@@ -20,12 +19,14 @@ func NewHTTPHadler(notifService ports.PushNotificationService) *HTTPHandler {
 
 func (hdl *HTTPHandler) Send(c *gin.Context) {
 
-	id := uuid.New().String()
-	notif, err := hdl.notifService.Send(domain.PushNotif{
-		ID:      id,
+	// id := uuid.New().String()
+	notif := domain.PushNotif{
+		ID:      "test-test",
 		Message: "test-message",
 		Type:    1,
-	})
+	}
+
+	notif, err := hdl.notifService.Send(notif)
 
 	if err != nil {
 		c.JSON(200, domain.ErrorMessage{

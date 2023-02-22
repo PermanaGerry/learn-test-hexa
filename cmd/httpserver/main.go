@@ -1,8 +1,8 @@
 package main
 
-// C:\Users\Majoo Indonesia\workspace\go\src\learn-test-hexa\internal\handlers\notifhdl\notif.go
 import (
 	"context"
+	"learn-test-hexa/infrastructure/repositories/mongo"
 	"learn-test-hexa/infrastructure/repositories/redis"
 	"learn-test-hexa/internal/core/services/notifsrv"
 	"learn-test-hexa/internal/handlers/notifhdl"
@@ -11,11 +11,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-redis/redis"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var (
-	ctx = context.Background()
-	rdb *redis.Client
+	ctx     = context.Background()
+	rdb     *redis.Client
+	DBMongo *mongo.Database
 )
 
 func init() {
@@ -32,6 +34,8 @@ func main() {
 	notifServiceRedis := notifsrv.New(notifRepositoryRedis)
 	notifHandlerRedis := notifhdl.NewHTTPHadler(notifServiceRedis)
 
+	userMongo := userrepords.NewMongoDBRepository(config.DBMongo)
+
 	gin.SetMode(gin.DebugMode)
 
 	router := gin.Default()
@@ -41,6 +45,12 @@ func main() {
 	{
 		groupRedis.GET("/send", notifHandlerRedis.Send)
 		groupRedis.GET("/list", notifHandlerRedis.List)
+	}
+	gorupMongo := router.Group("/mongo")
+	{
+		gorupMongo.GET("/list", func(c *gin.Context) {
+			c.JSON(200, userMongo.List())
+		})
 	}
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
